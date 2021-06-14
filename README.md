@@ -40,10 +40,8 @@ Discord sunucumuza katılmak isterseniz hepinizi bekleriz; https://discord.gg/bo
 
 Kurulum için composer kullanmanız gerekmektedir. Composer'a sahip değilseniz windows için [Buradan](https://getcomposer.org/) indirebilirsiniz.
 
-```php
-
+```
 composer require ismail0234/trendyol-php-api
-
 ```
 
 ## Kullanım
@@ -194,6 +192,77 @@ $trendyol->product->filterProducts(
 		'size'          => 50
 	)
 );
+
+/**
+ * Bu servis kullanılarak gönderilen ürünler Trendyol.com'da daha hızlı yayına alınmaktadır. (Ürün Aktarımı v2)
+ * Dökümantasyon ve ayrıntı için https://developers.trendyol.com/tr/urun-entegrasyonu/v2/urun-aktarma-2
+ * 
+ * @param array $data
+ * @return array
+ */
+$trendyol->product->createProducts(
+   array(
+           'items' => array(
+           'barcode'               => '',
+           'title'                 => '',
+           'productMainId'         => '',
+           'brandId'               => '',
+           'categoryId'            => '',
+           'quantity'              => '',
+           'stockCode'             => '',
+           'dimensionalWeight'     => '',
+           'description'           => '',
+           'currencyType'          => '',
+           'listPrice'             => '',
+           'salePrice'             => '',
+           'cargoCompanyId'        => '',
+           'images'                => array(
+                array(
+                'url'=>''
+                )
+           ),
+           'vatRate'               => '',
+           'shipmentAddressId'     => '',
+           'returningAddressId'    => '',
+           'attributes'            => array(
+                array(
+                    'attributeId' => '',
+                    'attributeValueId' => ''
+                )
+           )
+       ),
+   )
+);
+
+/**
+ * Trendyol'a aktarılan ve onaylanan ürünlerin fiyat ve stok bilgileri eş zamana yakın güncellenir. Stok ve fiyat bligilerini istek içerisinde ayrı ayrı gönderebilirsiniz.
+ * Dökümantasyon ve ayrıtı için https://developers.trendyol.com/tr/urun-entegrasyonu/stok-ve-fiyat-guncelleme
+ * 
+ * @param array $data
+ * @return array
+ */
+$trendyol->product->updatePriceAndInventory(
+    array(
+            'items' => array(
+               array(
+                    'barcode'               => '',
+                    'quantity'              => '',
+                    'listPrice'             => '',
+                    'salePrice'             => '',
+               )
+            )
+        )
+);
+
+/**
+ * Bu method yardımıyla batchRequestId ile alınan işlemlerin sonucunun kontrolü yapılabilir.
+ * Dökümantasyon ve ayrıntı için https://developers.trendyol.com/tr/urun-entegrasyonu/toplu-islem-kontrolu
+ * 
+ * @param string $batchRequestId
+ * @return array
+ */
+$trendyol->product->getBatchRequestResult('5631d1a1-ec81-496f-9407-99876554433-1529820717');
+
 ```
 
 ### Sipariş Servisi (Order Service)
